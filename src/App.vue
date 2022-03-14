@@ -1,18 +1,17 @@
-<script setup lang="ts">
-import { destinations } from "@/data.json";
+<script lang="ts">
+import SiteNavigation from "@/components/SiteNavigation.vue";
+
+export default {
+  components: {
+    SiteNavigation
+  }
+};
 </script>
 
 <template>
-  <nav id="nav">
-    <router-link to="/">Home</router-link>
-    <router-link
-      v-for="destination in destinations"
-      :to="`/${destination.slug}`"
-      :key="destination.id"
-      v-text="destination.name"
-    ></router-link>
-  </nav>
+  <SiteNavigation />
   <div class="container">
     <router-view></router-view>
   </div>
 </template>
+
