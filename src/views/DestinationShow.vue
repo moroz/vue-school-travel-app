@@ -9,17 +9,25 @@
 </template>
 
 <script lang="ts">
-import { destinations } from "@/data.json";
+const fetchData = async (slug: string) => {
+  const res = await fetch(`https://travel-dummy-api.netlify.app/${slug}`);
+  return res.json();
+};
 
 export default {
-  computed: {
-    destinationId() {
-      return this.$route.params.slug;
-    },
-    destination() {
-      return destinations.find((dest) => dest.slug === this.$route.params.slug);
+  data() {
+    return {
+      destination: null
+    };
+  },
+  methods: {
+    async initData() {
+      this.destination = await fetchData(this.$route.params.slug as string);
     }
+  },
+  async created() {
+    this.initData();
+    this.$watch(() => this.$route.params.slug, this.initData);
   }
 };
 </script>
-
