@@ -1,18 +1,18 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <br />
-  <router-link to="/">Home</router-link>
-  <router-link to="/about">About</router-link>
-  <router-view></router-view>
-</template>
+<script setup lang="ts">
+import { destinations } from "@/data.json";
+</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <nav id="nav">
+    <router-link to="/">Home</router-link>
+    <router-link
+      v-for="destination in destinations"
+      :to="`/${destination.slug}`"
+      :key="destination.id"
+      v-text="destination.name"
+    ></router-link>
+  </nav>
+  <div class="container">
+    <router-view></router-view>
+  </div>
+</template>
